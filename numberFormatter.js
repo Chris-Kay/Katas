@@ -1,11 +1,16 @@
-function formatFinalNumber(formattedSeconds, formattedMins, formattedHours) {
+var formattedSeconds,
+    formattedMins,
+    formattedHours;
 
+function formatFinalNumber(formattedSeconds, formattedMins, formattedHours) {
+    if(formattedMins === undefined) {
+        return formattedSeconds;
+    } else {
+        return formattedMins + " and " + formattedSeconds;
+    }
 }
 function formatDuration (seconds) {
 // Complete this function
-    var formattedSeconds,
-        formattedMins,
-        formattedHours;
 
     if(seconds === 0) {
         return 'now';
@@ -15,7 +20,7 @@ function formatDuration (seconds) {
         formattedMins = formatMins(seconds);
     }
 
-    formatFinalNumber(formattedSeconds, formattedMins, formattedHours);
+    return formatFinalNumber(formattedSeconds, formattedMins, formattedHours);
 }
 
 function formatSeconds(seconds) {
@@ -26,7 +31,7 @@ function formatSeconds(seconds) {
 function formatMins(seconds) {
     var mins = Math.floor((seconds / 60));
     var minsString = mins === 1 ? 'minute' : 'minutes';
-    var seconds = formatSeconds(seconds - mins * 60);
+    formattedSeconds = formatSeconds(seconds - mins * 60);
     return mins.toString() + ' ' + minsString;
 }
 
