@@ -3,12 +3,21 @@ var formattedSeconds,
     formattedHours;
 
 function formatFinalNumber(formattedSeconds, formattedMins, formattedHours) {
-    if(formattedMins === undefined) {
+    formattedSeconds = formattedSeconds === "0 seconds" ? undefined : formattedSeconds;
+    formattedMins = formattedMins === "0 mins" ? undefined : formattedMins;
+    formattedHours = formattedHours === "0 hours" ? undefined : formattedHours;
+
+
+    if(formattedSeconds && formattedMins === undefined) {
         return formattedSeconds;
-    } else if(formattedHours === undefined){
+    } else if (formattedSeconds === undefined && formattedHours == undefined && formattedMins) {
+        return formattedMins;
+    } else if(formattedSeconds && formattedMins && formattedHours === undefined){
         return formattedMins + " and " + formattedSeconds;
+    } else if(formattedHours && formattedMins && formattedSeconds) {
+        return formattedHours + ", " + formattedMins + " and " + formattedSeconds;
     } else {
-        return formattedHours + " " + formattedMins + " and " + formattedSeconds;
+        return formattedHours;
     }
 }
 function formatDuration (seconds) {
