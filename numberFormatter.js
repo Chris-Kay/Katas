@@ -5,8 +5,10 @@ var formattedSeconds,
 function formatFinalNumber(formattedSeconds, formattedMins, formattedHours) {
     if(formattedMins === undefined) {
         return formattedSeconds;
-    } else {
+    } else if(formattedHours === undefined){
         return formattedMins + " and " + formattedSeconds;
+    } else {
+        return formattedHours + " " + formattedMins + " and " + formattedSeconds;
     }
 }
 function formatDuration (seconds) {
@@ -18,6 +20,8 @@ function formatDuration (seconds) {
         formattedSeconds = formatSeconds(seconds);
     } else if (seconds < 3600) {
         formattedMins = formatMins(seconds);
+    } else {
+        formattedHours = formatHours(seconds);
     }
 
     return formatFinalNumber(formattedSeconds, formattedMins, formattedHours);
@@ -33,6 +37,13 @@ function formatMins(seconds) {
     var minsString = mins === 1 ? 'minute' : 'minutes';
     formattedSeconds = formatSeconds(seconds - mins * 60);
     return mins.toString() + ' ' + minsString;
+}
+
+function formatHours(seconds) {
+    var hours = Math.floor(((seconds / 60) / 60));
+    var hourString = hours === 1 ? 'hour' : 'hours';
+    formattedMins = formatMins(seconds - ((hours * 60) * 60));
+    return hours.toString() + " " + hourString;
 }
 
 assertEquals(formatDuration(1), "1 second");
