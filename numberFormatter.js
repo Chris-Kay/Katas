@@ -9,6 +9,14 @@ times = [];
     }
 
     var delta = seconds;
+
+    var years = Math.floor(delta / 31536000);
+    if(years > 0) {
+        formatYears(years);
+    }
+    delta -= days * 31536000;
+
+
     var days = Math.floor(delta / 86400);
     if(days > 0) {
         formatDays(days);
@@ -68,6 +76,11 @@ function formatHours(hours) {
 function formatDays(days) {
     var dayString = days === 1 ? 'day' : 'days';
     times.push(days.toString() + " " + dayString);
+}
+
+function formatYears(years) {   
+    var yearString = years === 1 ? 'year' : 'years';
+    times.push(years.toString() + " " + yearString);
 }
 
 assertEquals(formatDuration(1), "1 second");
